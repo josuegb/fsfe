@@ -85,6 +85,18 @@ Add this lines in the file:
 
 `sudo vi index.html` - Create a default html file
 
+<br>
+
+### Setup App
+
+`curl https://deb.nodesource.com/setup_19.x | sudo -E bash -` - Download node
+
+`sudo apt-get install nodejs` - Install node
+
+`sudo chown -R $USER:$USER /var/www` - Change owenership of the parent directory 
+
+`mkdir /var/www/app` - Create application directory 
+
 
 
 
