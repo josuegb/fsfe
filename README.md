@@ -39,7 +39,7 @@ Add this lines in the file:
 
 `apt upgrade` - Install new updates
 
-`shotdown now -r` Restart the server
+`shutdown now -r` Restart the server
 
 <br>
 
@@ -69,6 +69,21 @@ Add this lines in the file:
 
 `sudo service sshd restart` - Restart sshd service to read config changes
 
+<br>
+
+### Setup Nginx
+
+`sudo apt install nginx` - Install nginx 
+
+`sudo serice nginx start` - Start nginx service
+
+`cd /etc/nginx` - Go to Nginx directory 
+
+`less sites-available/default` - Check default configuration 
+
+`cd var/www/html` - Go the default page location
+
+`sudo vi index.html` - Create a default html file
 
 
 
