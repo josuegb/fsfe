@@ -164,6 +164,27 @@ Add these lines in the file:
      Host github.com
        Hostname github.com
        IdentityFile ~/.ssh/gh_key
+              
+`git init` - Init your git repo in your app folder
+
+`git remote add origin <url>` - Connect remote repo with local repo (use ssh url)
+
+`git fetch origin` - Sync the the remote repo with your local repo
+
+`git checkout main` - Change to the repo main branch
+
+<br>
+
+### In case you get stuck
+
+`ssh -Tv git@github.com` - Test ssh connection with github
+
+`:w !sudo tee %` - Save readonly file on VIM 
+
+`pkill <process>` - Stop a running process
+
+`stat -c %a <file-name>` - View permissions as numbers
+
  
  
 
