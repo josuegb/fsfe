@@ -21,7 +21,7 @@
 
 `vi ~/.ssh/config` - Open ssh config file
 
-Add this lines in the file:
+Add these lines in the file:
 
      Host *
        AddKeysToAgent yes
@@ -95,7 +95,63 @@ Add this lines in the file:
 
 `sudo chown -R $USER:$USER /var/www` - Change owenership of the parent directory 
 
-`mkdir /var/www/app` - Create application directory 
+`mkdir /var/www/app` - Create application directory -> Create a node app here
+
+<br>
+
+### Connect Nginx with Node app
+
+`sudo vi /etc/nginx/sites-enabled/<domain-name/app-name>` - Create nginx configuration file for our site
+
+Add these lines in the file: 
+     
+     server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+        index index.html;
+
+        server_name <domain-name>;
+
+        location / {
+                proxy_pass http://127.0.0.1:3000/;
+        }
+     }
+     
+ `sudo nginx -t` - Check nginx configuration files
+ 
+ `sudo vi /etc/nginx/nginx.conf` - Open nginx config file
+ 
+ Change this line: 
+ 
+     include /etc/nginx/sites-enabled/*;
+   
+ For: 
+ 
+     include /etc/nginx/sites-enabled/<domain-name/app-name>;
+     
+ `sudo service nginx restart` - Restart nginx service 
+     
+ `node /var/www/app/app.js` - Run node application -> Check on the browser
+ 
+ <br>
+ 
+ ### Setup pm2
+ 
+ `sudo npm i -g pm2` - Install pm2
+ 
+ `pm2 start app.js --watch` Start pm2 and watch for changes
+ 
+ `pm2 list` - See current pm2 current processes 
+ 
+ `pm2 save` - Save current processes list
+ 
+ `pm2 startup` - Return the script to setup pm2 on server start 
+ 
+ 
+
+
 
 
 
