@@ -149,6 +149,14 @@ Add these lines in the file:
  
  `pm2 startup` - Return the script to setup pm2 on server start 
  
+ <br>
+ 
+ ### Setup Git
+ 
+ [Add ssh key to Github](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+ 
+ [Add remote repo](https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories)
+ 
  
 
 
