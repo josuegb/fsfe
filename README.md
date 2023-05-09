@@ -157,6 +157,14 @@ Add these lines in the file:
  
  [Add remote repo](https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories)
  
+ `vi ~/.ssh/config` - Open ssh config to add our key (gh_key)
+ 
+ Add these lines to the file:
+ 
+     Host github.com
+       Hostname github.com
+       IdentityFile ~/.ssh/gh_key
+ 
  
 
 
