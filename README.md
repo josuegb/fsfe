@@ -189,6 +189,7 @@ Add these lines in the file:
 
 `stat -c %a <file-name>` - View permissions as numbers
 
+<br>
 
 ### nmap
 
@@ -228,6 +229,20 @@ Code number:
 `chmod <code-number <file-name>` - Change file permissions
 
 `chmod <code-number <dir>` - Change dir permissions recursively to it and its subdirectories
+
+<br>
+
+### Unattended Upgrades
+
+`sudo apt install unattended-upgrades` - Install unattended upgrades
+
+`sudo dpkg-reconfigure --priority=low unattended-upgrades` - Enable upgrades
+
+
+
+
+
+
 
 
 
