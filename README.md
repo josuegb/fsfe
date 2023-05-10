@@ -164,7 +164,11 @@ Add these lines in the file:
      Host github.com
        Hostname github.com
        IdentityFile ~/.ssh/gh_key
-              
+       
+`chmod 600 ~/.ssh/config` - Change permissions for ssh config   
+
+`chmod 600 ~/.ssh/<key-name>` - Change permissions for the ssh key (gh_key)
+
 `git init` - Init your git repo in your app folder
 
 `git remote add origin <url>` - Connect remote repo with local repo (use ssh url)
@@ -184,6 +188,50 @@ Add these lines in the file:
 `pkill <process>` - Stop a running process
 
 `stat -c %a <file-name>` - View permissions as numbers
+
+
+### nmap
+
+`sudo apt install nmap` - Install nmap
+
+`nmap <server-ip>` - See open ports on the server
+
+<br>
+
+### ufw - Uncomplicaded firewall
+
+`sudo ufw status` - Check firewall status
+
+`sudo ufw allow ssh` - Allow ssh
+
+`sudo ufw allow http` - Allow http
+
+`sudo ufw enable` - Enable firewall
+
+<br>
+
+### Permissions
+
+**R**ead    4
+
+**W**rite   2
+
+e**X**ecute 1
+
+Code number:
+| owner | group | everyone else |
+| :----: | :----: | :----: |
+| rwx  | rwx | rwx |
+| 4+2+1  | 4+2+1 | 4+2+1 |
+| 7  | 7 | 7 |
+
+`chmod <code-number <file-name>` - Change file permissions
+
+`chmod <code-number <dir>` - Change dir permissions recursively to it and its subdirectories
+
+
+
+
 
  
  
