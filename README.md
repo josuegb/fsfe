@@ -101,7 +101,7 @@ Add these lines in the file:
 
 ### Connect Nginx with Node app
 
-`sudo vi /etc/nginx/sites-enabled/<domain-name/app-name>` - Create nginx configuration file for our site
+`sudo vi /etc/nginx/sites-enabled/<domain-name/app-name>(fsfe)` - Create nginx configuration file for our site
 
 Add these lines in the file: 
      
@@ -129,7 +129,7 @@ Add these lines in the file:
    
  For: 
  
-     include /etc/nginx/sites-enabled/<domain-name/app-name>;
+     include /etc/nginx/sites-enabled/<domain-name/app-name>(fsfe);
      
  `sudo service nginx restart` - Restart nginx service 
      
@@ -163,11 +163,11 @@ Add these lines in the file:
  
      Host github.com
        Hostname github.com
-       IdentityFile ~/.ssh/gh_key
+       IdentityFile ~/.ssh/<keyname>(gh_key)
        
 `chmod 600 ~/.ssh/config` - Change permissions for ssh config   
 
-`chmod 600 ~/.ssh/<key-name>` - Change permissions for the ssh key (gh_key)
+`chmod 600 ~/.ssh/<key-name>(gh_key)` - Change permissions for the ssh key (gh_key)
 
 `git init` - Init your git repo in your app folder
 
@@ -264,9 +264,9 @@ Add these lines to the file:
 
 Add this line to the file:
 
-     * * * * * sh <script-file>(/var/www/app/github.sh) 2>&1 | logger -t github.sh
+     * * * * * sh <script-file>(/var/www/app/github.sh) 2>&1 | logger -t <log-name>(github.sh)
      
-This part is for log the git command output: `2>&1 | logger -t github.sh` 
+This part is for log the git command output: `2>&1 | logger -t <log-name>(github.sh)` 
 
 `sudo tail -f /var/log/syslog` - Actively follow syslog file (check if our cronjob is working)
 
@@ -325,6 +325,43 @@ Use this structure -> `find <dir> <option> "<file/folder>"`
 Use this structure -> `grep <options> "<search-expression>" <dir>`
 
 `ps aux | grep node` - Find running node processes
+
+<br>
+
+### Subdomain
+
+`sudo vi /etc/nginx/sites-enabled/<subdomain-name>.<domain-name/app-name>(blog.fsfe)` - Add new subdomain (blog.fsfe)
+
+Add these lines to the file:
+
+     server {
+	     listen 80;
+	     listen [::]:80;
+
+	     server_name <subdomain-name>(blog).<domain-name>;
+
+	     location / {
+		     proxy_pass http://localhost:3000;
+	     }
+     }
+     
+ `sudo vi /etc/nginx/nginx.conf` - Open nginx config file
+ 
+ Add this line in the "Virtual Host Configs":
+ 
+     include /etc/nginx/sites-enabled/<subdomain-name>(blog).<domain-name/app-name>(fsfe)
+     
+ `sudo nginx -t` - Check nginx configuration files
+ 
+ `sudo service nginx restart` - Restart nginx service
+ 
+ 
+ 
+ 
+
+
+
+
 
 
 
