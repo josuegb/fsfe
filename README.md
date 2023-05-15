@@ -51,7 +51,7 @@ Add these lines in the file:
 
 `su <user-name>` Switch user
 
-`sudo cat /var/log/auth.log` - Check sudo access 
+`sudo cat /var/log/auth.log` - Open auth log of our server (Check sudo access)
 
 #### Enable login as new user
 
@@ -187,7 +187,7 @@ Add these lines in the file:
 
 `pkill <process>` - Stop a running process
 
-`stat -c %a <file-name>` - View permissions as numbers
+`stat -c %a <file>` - View permissions as numbers
 
 <br>
 
@@ -237,6 +237,112 @@ Code number:
 `sudo apt install unattended-upgrades` - Install unattended upgrades
 
 `sudo dpkg-reconfigure --priority=low unattended-upgrades` - Enable upgrades
+
+<br>
+
+### Create a cronjob to pull from github our last changes automatically 
+
+`which bash` - Return the location of bash (it needs to be at the beginning of each script)
+
+`vi <script-name>.sh` - Create a new file script (github.sh)
+
+Add these lines to the file:
+
+     #! <bash-location>(/usr/bin/bash)
+     cd <app-dir>(/var/www/app)
+     git pull origin <git-branch>(main) --ff-only
+     
+`chmod 700 <script-name>` - Change file permission to execute it (execute is defualt disabled) 
+
+`./<script-name>` - Execute the script to test it
+
+#### Cronjob
+
+[Cron structure](https://crontab.guru/)
+
+`crontab -e` - Edit cronjobs (if first time you have to select an editor, 2 for vim for example)
+
+Add this line to the file:
+
+     * * * * * sh <script-file>(/var/www/app/github.sh) 2>&1 | logger -t github.sh
+     
+This part is for log the git command output: `2>&1 | logger -t github.sh` 
+
+`sudo tail -f /var/log/syslog` - Actively follow syslog file (check if our cronjob is working)
+
+<br>
+
+### Logging
+
+Log files are located in `/var/log/`
+
+We typically check for these files there:
+
+- syslog
+- auth.log
+- nginx/access.log
+
+#### Ways to read read log files
+
+`tail <file>` - Output the last part of a file (you can add `-f` to the command to follow the output of the file)
+
+`head <file>` - Output the first part of a file
+
+`less <file>` - Output one page at time
+
+`cat <file>` Output entire file
+
+#### Standard Streams
+
+- Standard output `stdout`
+- Standard input `stdin`
+- Standard error `stderr`
+
+Redirection examples:
+
+`<commmand> | <command>` - Reads from stdout 
+
+`<commmand> > <file>`- Write stdout to file
+
+`<commmand> >> <file>`- Append stdout to file
+
+`<commmand> < <file>`- Read from stdin (it will read the content of the file and use it as input for the command)
+
+`<commmand> 2>&1 <command>` - Redirect both stderr and stdout
+
+#### Finding things
+
+Use this structure -> `find <dir> <option> "<file/folder>"` 
+
+`find /var/log -type f -name "*.log"` - Find all log files in /var/log
+
+`sudo !!` - run last command with sudo privileges
+
+`find / -type d -name log` - Find all directories with the name log
+
+#### grep
+
+Use this structure -> `grep <options> "<search-expression>" <dir>`
+
+`ps aux | grep node` - Find running node processes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
