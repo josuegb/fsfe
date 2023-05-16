@@ -141,7 +141,7 @@ Add these lines in the file:
  
  `sudo npm i -g pm2` - Install pm2
  
- `pm2 start app.js --watch` Start pm2 and watch for changes
+ `pm2 start <node-server-file>(app.js) --watch` Start pm2 and watch for changes
  
  `pm2 list` - See current pm2 current processes 
  
@@ -365,6 +365,29 @@ Add these lines to the file:
  
  	proxy_set_header Upgrade $http_upgrade;
 	proxy_set_header Connection "upgrade";
+	
+`sudo nginx -t` - Check nginx configuration files
+ 
+`sudo service nginx restart` - Restart nginx service
+	
+Stop our simple server and start the websocket server
+
+`pm2 stop <node-server-file>(app.js)` - Stop process for simple server (app.js)
+
+`pm2 start <node-server-file>(index-ws.js)` - Start process for websocket server (index-ws.js)
+
+`pm2 save` - Save new current processes
+
+#### Modify github script to run npm install on with the cronjob
+
+`vi github.sh` - Open github script file
+
+Append this line to the file:
+
+	npm i
+
+
+
  
  
  
