@@ -355,6 +355,17 @@ Add these lines to the file:
  
  `sudo service nginx restart` - Restart nginx service
  
+ <br>
+ 
+ ### Websockets
+ 
+ `sudo vi /etc/nginx/sites-enabled/<domain-name/app-name>(fsfe)` - Open site nginx configuration 
+ 
+ Add these lines in the file under "location" block:
+ 
+ 	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection "upgrade";
+ 
  
  
  
