@@ -385,10 +385,40 @@ Stop our simple server and start the websocket server
 Append this line to the file:
 
 	npm i
+	
+<br>
 
+### Implementing HTTPS with Certbot
 
+[Certbot](https://certbot.eff.org/)
 
+`cat /etc/nginx/sites-enabled/<domain-name/app-name>(fsfe)` - Check certbot updates in nginx configuration file
+
+`sudo ufw allow https` - Open HTTPS port on firewall 
+
+<br>
+
+### Implement HTTP2 
+
+`sudo vi /etc/nginx/sites-enabled/<domain-name/app-name>(fsfe)` - Open nginx configuration file
+
+ Change these lines: 
  
+ 	listen [::]:443 ssl ipv6only=on; # managed by Certbot
+	listen 443 ssl; # managed by Certbot
+   
+ For: 
+
+	listen [::]:443 http2 ssl ipv6only=on; # managed by Certbot
+	listen 443 http2 ssl; # managed by Certbot
+     
+`sudo nginx -t` - Check nginx configuration files 
+
+`sudo service nginx restart` - Restart nginx service 
+
+
+
+
  
  
  
