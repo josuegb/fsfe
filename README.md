@@ -416,6 +416,71 @@ Append this line to the file:
 
 `sudo service nginx restart` - Restart nginx service 
 
+<br>
+
+### Creating a Docker container 
+
+`vi Dockerfile` - Create a docker file (in /var/www/app)
+
+Add these lines to the file:
+
+	FROM node:19-alpine3.16
+	RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+	WORKDIR /home/node/app
+	COPY --chown=node:node package*.json ./
+	USER node
+	RUN npm install
+	COPY --chown=node:node . .
+	EXPOSE 3000
+	CMD ["node", "app.js"]
+
+`sudo apt install docker.io` - Install docker with apt
+
+`docker` - Check if docker is available 
+
+`sudo docker build -t <container-name>(node-fsfe) .` - Build docker container in the current location
+
+`sudo docker image ls` - Check current docker images
+
+`pm2 stop index-ws.js` - Stop current pm2 process to use port for our docker container 
+
+`sudo docker run -d -p <server-port>(3000):<docker-port>(3000) <docker-image-name>(node-fsfe)` - Run docker image on indicated port
+
+<br>
+
+### Orchestration & Load Balancing 
+
+`htop` - Check server current processes and resources usage 
+
+`sudo docker run -d -p <server-port>(3001):<docker-port>(3000) <docker-image-name>(node-fsfe)` - Run docker image on indicated port (second instance in port 3001)
+
+`sudo vi /etc/nginx/nginx.conf` - Open nginx config file
+
+Add these lines inside *http* block:
+
+	upstream nodebackend {
+		server localhost:3000;
+		server localhost:3001;
+	}
+
+`sudo vi /etc/nginx/sites-enabled/<domain-name/app-name>(fsfe)` - Open site nginx configuration
+
+Change this line:
+
+	proxy_pass http://127.0.0.1:3000/;
+	
+For:
+
+	proxy_pass http://nodebackend;
+	
+`sudo nginx -t` - Check nginx configuration files
+
+`sudo service nginx restart` - Restart nginx service
+	
+
+
+
+
 
 
 
